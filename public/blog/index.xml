@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>Blog on SIGKILL</title>
+    <link>http://localhost:1313/blog/</link>
+    <description>Recent content in Blog on SIGKILL</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-US</language>
+    <managingEditor>cr4sh@sigkill.no (cr4sh0v3rrid3)</managingEditor>
+    <webMaster>cr4sh@sigkill.no (cr4sh0v3rrid3)</webMaster>
+    <copyright>cr4sh0v3rrid3 (CC BY 4.0)</copyright>
+    <lastBuildDate>Fri, 05 Apr 2024 00:00:00 +0000</lastBuildDate>
+    <atom:link href="http://localhost:1313/blog/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Hello World!</title>
+      <link>http://localhost:1313/blog/blah/</link>
+      <pubDate>Fri, 05 Apr 2024 00:00:00 +0000</pubDate><author>cr4sh@sigkill.no (cr4sh0v3rrid3)</author>
+      <guid>http://localhost:1313/blog/blah/</guid>
+      <description>I did it! I finally found time to actually put up a blog. As part of loving the simplicity of the old web and as a avid complainer of how modern websites are way to bloated, I&amp;rsquo;ve made an attemt at keepubg this blog as simple as possible.&#xA;Instead of spinning my own theme I ended up using a pre-made one, simpliy because I found one that had exactly what I needed and nothing else.</description>
+      <content:encoded><![CDATA[<p>I did it! I finally found time to actually put up a blog. As part of loving
+the simplicity of the old web and as a avid complainer of how modern websites
+are way to bloated, I&rsquo;ve made an attemt at keepubg this blog as simple as
+possible.</p>
+<p>Instead of spinning my own theme I ended up using a pre-made one, simpliy because
+I found one that had exactly what I needed and nothing else. The styling is simple
+and it&rsquo;s one of the few themes out there without any JS. The theme can be found
+over at <a href="https://github.com/clente/hugo-bearcub">GitHub</a></p>
+<p>So what can you expect from this blog? Well&hellip; I won&rsquo;t promise too much, but I
+will at least try to use it as a personal journal where I share my thoughs and
+notes on everything ranging from how to configure IRC bouncers to why I think
+AI right now is just a fad.</p>
+]]></content:encoded>
+    </item>
+  </channel>
+</rss>
