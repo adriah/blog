@@ -8,7 +8,16 @@
     <loc>https://sigkill.no/blog/</loc>
     <lastmod>2024-04-05T00:00:00+00:00</lastmod>
   </url><url>
+    <loc>https://sigkill.no/blog/alacritty_terminfo/</loc>
+    <lastmod>2024-04-05T00:00:00+00:00</lastmod>
+  </url><url>
     <loc>https://sigkill.no/blog/hello_world/</loc>
+    <lastmod>2024-04-05T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://sigkill.no/tags/howto/</loc>
+    <lastmod>2024-04-05T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://sigkill.no/tags/linux/</loc>
     <lastmod>2024-04-05T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://sigkill.no/tags/rant/</loc>
@@ -16,18 +25,6 @@
   </url><url>
     <loc>https://sigkill.no/tags/</loc>
     <lastmod>2024-04-05T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://sigkill.no/blog/alacritty_terminfo/</loc>
-    <lastmod>2024-01-17T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://sigkill.no/tags/howto/</loc>
-    <lastmod>2024-01-17T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://sigkill.no/tags/linux/</loc>
-    <lastmod>2024-01-17T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://sigkill.no/tags/terminal/</loc>
-    <lastmod>2024-01-17T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://sigkill.no/categories/</loc>
   </url>

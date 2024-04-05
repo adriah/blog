@@ -1,14 +1,14 @@
 +++
-authors = ["Adrian Helle"]
+author = "cr4sh0v3rrid3"
 title = "Alacritty terminfo"
+date = "2024-04-05"
 description = "Getting alacritty to work on remote hosts"
-date = "2024-01-17"
 tags = [
     "linux",
-    "terminal",
     "howto"
 ]
 +++
+
 
 To get alacritty to work with remote hosts:
 

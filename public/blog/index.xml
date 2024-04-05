@@ -12,29 +12,9 @@
     <lastBuildDate>Fri, 05 Apr 2024 00:00:00 +0000</lastBuildDate>
     <atom:link href="https://sigkill.no/blog/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>Hello World!</title>
-      <link>https://sigkill.no/blog/hello_world/</link>
-      <pubDate>Fri, 05 Apr 2024 00:00:00 +0000</pubDate><author>cr4sh@sigkill.no (cr4sh0v3rrid3)</author>
-      <guid>https://sigkill.no/blog/hello_world/</guid>
-      <description>I did it! I finally found time to actually put up a blog. As part of loving the simplicity of the old web and as a avid complainer of how modern websites are way to bloated, I&amp;rsquo;ve made an attemt at keepubg this blog as simple as possible.&#xA;Instead of spinning my own theme I ended up using a pre-made one, simpliy because I found one that had exactly what I needed and nothing else.</description>
-      <content:encoded><![CDATA[<p>I did it! I finally found time to actually put up a blog. As part of loving
-the simplicity of the old web and as a avid complainer of how modern websites
-are way to bloated, I&rsquo;ve made an attemt at keepubg this blog as simple as
-possible.</p>
-<p>Instead of spinning my own theme I ended up using a pre-made one, simpliy because
-I found one that had exactly what I needed and nothing else. The styling is simple
-and it&rsquo;s one of the few themes out there without any JS. The theme can be found
-over at <a href="https://github.com/clente/hugo-bearcub">GitHub</a></p>
-<p>So what can you expect from this blog? Well&hellip; I won&rsquo;t promise too much, but I
-will at least try to use it as a personal journal where I share my thoughs and
-notes on everything ranging from how to configure IRC bouncers to why I think
-AI right now is just a fad.</p>
-]]></content:encoded>
-    </item>
-    <item>
       <title>Alacritty terminfo</title>
       <link>https://sigkill.no/blog/alacritty_terminfo/</link>
-      <pubDate>Wed, 17 Jan 2024 00:00:00 +0000</pubDate><author>cr4sh@sigkill.no (cr4sh0v3rrid3)</author>
+      <pubDate>Fri, 05 Apr 2024 00:00:00 +0000</pubDate><author>cr4sh@sigkill.no (cr4sh0v3rrid3)</author>
       <guid>https://sigkill.no/blog/alacritty_terminfo/</guid>
       <description>To get alacritty to work with remote hosts:&#xA;$ infocmp &amp;gt; al.txt $ scp al.txt &amp;lt;user&amp;gt;@&amp;lt;host&amp;gt;:~/ # On the remote host: $ tic -x al.txtWhat does &amp;ldquo;tic -x&amp;rdquo; do? $ man tic ... -x Treat unknown capabilities as user-defined (see user_caps(5)). That is, if you supply a capability name which tic does not recognize, it will infer its type (Boolean, number or string) from the syntax and make an extended table entry for that.</description>
       <content:encoded><![CDATA[<p>To get alacritty to work with remote hosts:</p>
@@ -66,6 +46,26 @@ $ tic -x al.txt</code></pre><h3 id="what-does-tic--x-do">What does &ldquo;tic -x
 
 
 <pre tabindex="0"><code>$ infocmp | ssh &#34;$user@$host&#34; &#39;tic -x /dev/stdin&#39;</code></pre>]]></content:encoded>
+    </item>
+    <item>
+      <title>Hello World!</title>
+      <link>https://sigkill.no/blog/hello_world/</link>
+      <pubDate>Fri, 05 Apr 2024 00:00:00 +0000</pubDate><author>cr4sh@sigkill.no (cr4sh0v3rrid3)</author>
+      <guid>https://sigkill.no/blog/hello_world/</guid>
+      <description>I did it! I finally found time to actually put up a blog. As part of loving the simplicity of the old web and as a avid complainer of how modern websites are way to bloated, I&amp;rsquo;ve made an attemt at keepubg this blog as simple as possible.&#xA;Instead of spinning my own theme I ended up using a pre-made one, simpliy because I found one that had exactly what I needed and nothing else.</description>
+      <content:encoded><![CDATA[<p>I did it! I finally found time to actually put up a blog. As part of loving
+the simplicity of the old web and as a avid complainer of how modern websites
+are way to bloated, I&rsquo;ve made an attemt at keepubg this blog as simple as
+possible.</p>
+<p>Instead of spinning my own theme I ended up using a pre-made one, simpliy because
+I found one that had exactly what I needed and nothing else. The styling is simple
+and it&rsquo;s one of the few themes out there without any JS. The theme can be found
+over at <a href="https://github.com/clente/hugo-bearcub">GitHub</a></p>
+<p>So what can you expect from this blog? Well&hellip; I won&rsquo;t promise too much, but I
+will at least try to use it as a personal journal where I share my thoughs and
+notes on everything ranging from how to configure IRC bouncers to why I think
+AI right now is just a fad.</p>
+]]></content:encoded>
     </item>
   </channel>
 </rss>

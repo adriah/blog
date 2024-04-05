@@ -12,17 +12,9 @@
     <lastBuildDate>Fri, 05 Apr 2024 00:00:00 +0000</lastBuildDate>
     <atom:link href="https://sigkill.no/tags/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>Rant</title>
-      <link>https://sigkill.no/tags/rant/</link>
-      <pubDate>Fri, 05 Apr 2024 00:00:00 +0000</pubDate><author>cr4sh@sigkill.no (cr4sh0v3rrid3)</author>
-      <guid>https://sigkill.no/tags/rant/</guid>
-      <description></description>
-      <content:encoded><![CDATA[]]></content:encoded>
-    </item>
-    <item>
       <title>Howto</title>
       <link>https://sigkill.no/tags/howto/</link>
-      <pubDate>Wed, 17 Jan 2024 00:00:00 +0000</pubDate><author>cr4sh@sigkill.no (cr4sh0v3rrid3)</author>
+      <pubDate>Fri, 05 Apr 2024 00:00:00 +0000</pubDate><author>cr4sh@sigkill.no (cr4sh0v3rrid3)</author>
       <guid>https://sigkill.no/tags/howto/</guid>
       <description></description>
       <content:encoded><![CDATA[]]></content:encoded>
@@ -30,16 +22,16 @@
     <item>
       <title>Linux</title>
       <link>https://sigkill.no/tags/linux/</link>
-      <pubDate>Wed, 17 Jan 2024 00:00:00 +0000</pubDate><author>cr4sh@sigkill.no (cr4sh0v3rrid3)</author>
+      <pubDate>Fri, 05 Apr 2024 00:00:00 +0000</pubDate><author>cr4sh@sigkill.no (cr4sh0v3rrid3)</author>
       <guid>https://sigkill.no/tags/linux/</guid>
       <description></description>
       <content:encoded><![CDATA[]]></content:encoded>
     </item>
     <item>
-      <title>Terminal</title>
-      <link>https://sigkill.no/tags/terminal/</link>
-      <pubDate>Wed, 17 Jan 2024 00:00:00 +0000</pubDate><author>cr4sh@sigkill.no (cr4sh0v3rrid3)</author>
-      <guid>https://sigkill.no/tags/terminal/</guid>
+      <title>Rant</title>
+      <link>https://sigkill.no/tags/rant/</link>
+      <pubDate>Fri, 05 Apr 2024 00:00:00 +0000</pubDate><author>cr4sh@sigkill.no (cr4sh0v3rrid3)</author>
+      <guid>https://sigkill.no/tags/rant/</guid>
       <description></description>
       <content:encoded><![CDATA[]]></content:encoded>
     </item>
