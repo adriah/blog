@@ -2,33 +2,33 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>https://example.com/</loc>
+    <loc>https://sigkill.no/</loc>
     <lastmod>2024-04-05T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://example.com/blog/</loc>
+    <loc>https://sigkill.no/blog/</loc>
     <lastmod>2024-04-05T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://example.com/blog/hello_world/</loc>
+    <loc>https://sigkill.no/blog/hello_world/</loc>
     <lastmod>2024-04-05T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://example.com/tags/rant/</loc>
+    <loc>https://sigkill.no/tags/rant/</loc>
     <lastmod>2024-04-05T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://example.com/tags/</loc>
+    <loc>https://sigkill.no/tags/</loc>
     <lastmod>2024-04-05T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://example.com/blog/alacritty_terminfo/</loc>
+    <loc>https://sigkill.no/blog/alacritty_terminfo/</loc>
     <lastmod>2024-01-17T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://example.com/tags/howto/</loc>
+    <loc>https://sigkill.no/tags/howto/</loc>
     <lastmod>2024-01-17T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://example.com/tags/linux/</loc>
+    <loc>https://sigkill.no/tags/linux/</loc>
     <lastmod>2024-01-17T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://example.com/tags/terminal/</loc>
+    <loc>https://sigkill.no/tags/terminal/</loc>
     <lastmod>2024-01-17T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://example.com/categories/</loc>
+    <loc>https://sigkill.no/categories/</loc>
   </url>
 </urlset>

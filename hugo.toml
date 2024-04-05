@@ -1,5 +1,5 @@
 # Basic config
-baseURL = "https://example.com"
+baseURL = "https://sigkill.no"
 theme = "hugo-bearcub"
 copyright = "cr4sh0v3rrid3 (CC BY 4.0)"
 defaultContentLanguage = "en"
