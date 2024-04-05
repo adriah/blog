@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Rant on SIGKILL</title>
+    <link>https://example.com/tags/rant/</link>
+    <description>Recent content in Rant on SIGKILL</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-US</language>
+    <managingEditor>cr4sh@sigkill.no (cr4sh0v3rrid3)</managingEditor>
+    <webMaster>cr4sh@sigkill.no (cr4sh0v3rrid3)</webMaster>
+    <copyright>cr4sh0v3rrid3 (CC BY 4.0)</copyright>
+    <lastBuildDate>Fri, 05 Apr 2024 00:00:00 +0000</lastBuildDate>
+    <atom:link href="https://example.com/tags/rant/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Hello World!</title>
+      <link>https://example.com/blog/hello_world/</link>
+      <pubDate>Fri, 05 Apr 2024 00:00:00 +0000</pubDate><author>cr4sh@sigkill.no (cr4sh0v3rrid3)</author>
+      <guid>https://example.com/blog/hello_world/</guid>
+      <description>I did it! I finally found time to actually put up a blog. As part of loving the simplicity of the old web and as a avid complainer of how modern websites are way to bloated, I&amp;rsquo;ve made an attemt at keepubg this blog as simple as possible.&#xA;Instead of spinning my own theme I ended up using a pre-made one, simpliy because I found one that had exactly what I needed and nothing else.</description>
+    </item>
+  </channel>
+</rss>
