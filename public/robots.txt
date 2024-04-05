@@ -1,1 +1,3 @@
 User-agent: *
+Allow: /
+Sitemap: https://sigkill.no/sitemap.xml
