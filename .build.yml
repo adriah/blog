@@ -1,5 +1,5 @@
 image: archlinux
-pagackes:
+packages:
   - hugo
 sources:
   - git@git.sr.ht:~cr4sh0v3rrid3/blog
