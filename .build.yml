@@ -1,6 +1,6 @@
 image: openbsd/latest
 packages:
-  - hugo
+  - hugo-0.116.1
 sources:
   - git@git.sr.ht:~cr4sh0v3rrid3/blog
 environment:
