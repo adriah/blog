@@ -13,7 +13,7 @@ tasks:
       cd blog
   - build: |
       cd blog
-      /home/build/bin/hugo --config hugo.toml
+      hugo --config hugo.toml
   - deploy: |
       cd blog
       sshopts="ssh -o StrictHostKeyChecking=no"
