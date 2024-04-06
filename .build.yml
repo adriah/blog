@@ -1,4 +1,6 @@
-image: openbsd/latest
+image: archlinux
+pagackes:
+  - hugo
 sources:
   - git@git.sr.ht:~cr4sh0v3rrid3/blog
 environment:
@@ -8,10 +10,7 @@ secrets:
   - 3b1ce6db-ec1a-480b-83d2-634001128912
 tasks:
   - setup: |
-      ftp https://github.com/gohugoio/hugo/releases/download/v0.124.1/hugo_0.124.1_openbsd-amd64.tar.gz
-      tar xvzf hugo_0.124.1_openbsd-amd64.tar.gz
-      mkdir bin
-      mv hugo bin/
+      cd blog
   - build: |
       cd blog
       /home/build/bin/hugo --config hugo.toml
