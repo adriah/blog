@@ -11,10 +11,12 @@ I can jot down notes on everything ranging from guides to thoughts on how our
 AI overlords will fail on the journey to one day take over this world and save 
 humanity.
 
-I do write code, which can be found at the best source forge out there: [sr.ht]()
+I do write code, which can be found at the best source forge out there: 
+[sr.ht](https://sr.ht/~cr4sh0v3rrid3/)
 
 
-You can get in touch on [Mastadon]() if you found anything interesting here, or 
-if you just want to have a discussion! (I love discussions no matter what topic)
+You can get in touch on [Mastadon](https://infosec.exchange/@mysticmastomouse)
+if you found anything interesting here, or if you just want to have a discussion!
+(I love discussions no matter what topic)
 
 Oh, I live in Norway :norway: which might explain the gloomy mood during winters.
