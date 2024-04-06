@@ -1,0 +1,20 @@
+image: openbsd
+packages:
+  - hugo
+sources:
+  - git@git.sr.ht:~cr4sh0v3rrid3/blog
+environment:
+  deploy: _srht@sigkill.no
+secrets:
+  # You'll want to replace this with the ID of your secret copied above
+  - 3b1ce6db-ec1a-480b-83d2-634001128912
+tasks:
+  - setup: |
+      cd blog
+  - build: |
+      cd blog
+      hugo --config hugo.toml
+  - deploy: |
+      cd blog
+      sshopts="ssh -o StrictHostKeyChecking=no"
+      rsync --rsh="$sshopts" -rP public $deploy:/var/www/sigkill.no/
