@@ -1,4 +1,4 @@
-image: openbsd
+image: openbsd/latest
 packages:
   - hugo
 sources:
