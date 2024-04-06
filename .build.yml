@@ -12,10 +12,9 @@ tasks:
       tar xvzf hugo_0.124.1_openbsd-amd64.tar.gz
       mkdir bin
       mv hugo bin/
-      cd blog
   - build: |
       cd blog
-      hugo --config hugo.toml
+      /home/build/bin/hugo --config hugo.toml
   - deploy: |
       cd blog
       sshopts="ssh -o StrictHostKeyChecking=no"
