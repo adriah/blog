@@ -1,6 +1,7 @@
 image: archlinux
 packages:
   - hugo
+  - rsync
 sources:
   - git@git.sr.ht:~cr4sh0v3rrid3/blog
 environment:
