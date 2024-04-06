@@ -18,4 +18,4 @@ tasks:
   - deploy: |
       cd blog
       sshopts="ssh -o StrictHostKeyChecking=no"
-      rsync --rsh="$sshopts" -rP public $deploy:/var/www/sigkill.no/
+      rsync --rsh="$sshopts" -rP public $deploy:/var/www/html/sigkill.no/
