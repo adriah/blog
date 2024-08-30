@@ -2,20 +2,358 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
     <title>Blog on SIGKILL</title>
-    <link>https://sigkill.no/blog/</link>
+    <link>http://localhost:1313/blog/</link>
     <description>Recent content in Blog on SIGKILL</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-US</language>
     <managingEditor>cr4sh@sigkill.no (cr4sh0v3rrid3)</managingEditor>
     <webMaster>cr4sh@sigkill.no (cr4sh0v3rrid3)</webMaster>
     <copyright>cr4sh0v3rrid3 (CC BY 4.0)</copyright>
-    <lastBuildDate>Fri, 05 Apr 2024 00:00:00 +0000</lastBuildDate>
-    <atom:link href="https://sigkill.no/blog/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Fri, 30 Aug 2024 00:00:00 +0000</lastBuildDate>
+    <atom:link href="http://localhost:1313/blog/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>OpenBSD router in a hurry!</title>
+      <link>http://localhost:1313/blog/openbsd-router/</link>
+      <pubDate>Fri, 30 Aug 2024 00:00:00 +0000</pubDate><author>cr4sh@sigkill.no (cr4sh0v3rrid3)</author>
+      <guid>http://localhost:1313/blog/openbsd-router/</guid>
+      <description>How I got myself into this situation My old router decided to migrate into the eternal life as e-waste the other day. It completely died; not even showing signs of life on the console port! For over 8 years it had been serving internet for me and my wife more or less 24/7, so it probably felt it was time to retire after a long and prosperous life of packet shuffling.</description>
+      <content:encoded><![CDATA[<h2 id="how-i-got-myself-into-this-situation">How I got myself into this situation</h2>
+<p>My old router decided to migrate into the eternal life as e-waste the other day. It completely died; not even showing signs of life on the console port! For over 8 years it had been serving internet for me and my wife more or less 24/7, so it probably felt it was time to retire after a long and prosperous life of packet shuffling.</p>
+<p>The, now dead, router was a PC Engines APU4C4, which I bought from teklager.se. For the duration of its life it ran pfSense, which I had lots of issues with the entire time. If it weren&rsquo;t for the fact that downtime would affect my wife as well, I would have installed something else a long time ago. But I digress.</p>
+<p>I was luck this time since the router died while my wife was gone on a work related trip. That meant that I had a bit over one day to fix something new. Now, the challenge in this case was that my network topology is rather complicated compared to the &ldquo;normal&rdquo; networks found in the average home. I have taken the time to segment the network, by creating segments for WLAN, the servers, IoT and a subnet for even less trusted devices than the IoT subnet&hellip; As the wise and experienced network administrator I am I had of course not stored a backup anywhere accessible!</p>
+<p>So, figuring out what VLAN IDs I had used became a rather annoying challenge. Luckily I had most of the information available on a old Cisco switch I hadn&rsquo;t gotten around to throw away.</p>
+<h2 id="the-temporary-solution">The temporary solution</h2>
+<p>I found an old Lenovo T480s laying around that I ended up installing OpenBSD on. Since that machine only had one network port I had to use a USB-C hub with an additional port. This part, luckily, worked right out of the box without any issues.</p>
+<p>To get this to work I needed:</p>
+<ul>
+<li>A egress interface, axen0, connected to the cable modem for internet routing</li>
+<li>A local interface, em0, where all the VLANs live
+<ul>
+<li>VLAN 120 - the server subnet</li>
+<li>VLAN 130 - the WiFi subnet</li>
+<li>VLAN 140 - the IoT subnet, used for both wired and wireless clients</li>
+<li>VLAN 150 - the alarm system; completely isolated from everything else</li>
+</ul>
+</li>
+</ul>
+<p>This all boils down to:</p>
+<ul>
+<li>Configuring all the interfaces <code>/etc/hostname.[axen0|em0|vlan120|vlan130|vlan140|vlan150]</code>
+<ul>
+<li>Only the egress interface would be configured with autconf to recieve it&rsquo;s IP, route etc from my ISP</li>
+<li>All the other interfaces will be have a static configuration</li>
+</ul>
+</li>
+<li>Configure the dhcpd service to issue leases to clients in the network</li>
+<li>Configure pf with some sane rules
+<ul>
+<li>VLAN 120 should be allowed to talk to everything</li>
+<li>VLAN 130 should be allowed to talk to everything</li>
+<li>VLAN 140 should only be allowed to talk to specific services on VLAN 120</li>
+<li>VLAN 150 should not be allowed to talk to anything</li>
+</ul>
+</li>
+<li>Bonus: after getting everything up and running we want IPv6 support!</li>
+</ul>
+<p>/etc/hostname.axen0</p>
+
+
+
+
+
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-txt" data-lang="txt"><span class="line"><span class="ln">1</span><span class="cl">inet autoconf</span></span></code></pre></div><p>/etc/hostname.em0</p>
+
+
+
+
+
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-txt" data-lang="txt"><span class="line"><span class="ln">1</span><span class="cl">inet 10.0.0.1 255.255.255.0
+</span></span><span class="line"><span class="ln">2</span><span class="cl">up</span></span></code></pre></div><p>/etc/hostname.vlan120</p>
+
+
+
+
+
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-txt" data-lang="txt"><span class="line"><span class="ln">1</span><span class="cl">vlan 120 vlandev em0 
+</span></span><span class="line"><span class="ln">2</span><span class="cl">inet 192.168.1.1 255.255.255.0</span></span></code></pre></div><p>/etc/hostname.vlan130</p>
+
+
+
+
+
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-txt" data-lang="txt"><span class="line"><span class="ln">1</span><span class="cl">vlan 130 vlandev em0
+</span></span><span class="line"><span class="ln">2</span><span class="cl">inet 10.0.1.1 255.255.255.0</span></span></code></pre></div><p>/etc/hostname.vlan140</p>
+
+
+
+
+
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-txt" data-lang="txt"><span class="line"><span class="ln">1</span><span class="cl">vlan 140 vlandev em0
+</span></span><span class="line"><span class="ln">2</span><span class="cl">inet 10.0.4.1 255.255.255.0</span></span></code></pre></div><p>/etc/hostname.vlan150</p>
+
+
+
+
+
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-txt" data-lang="txt"><span class="line"><span class="ln">1</span><span class="cl">vlan 150 vlandev em0
+</span></span><span class="line"><span class="ln">2</span><span class="cl">inet 10.0.5.1 255.255.255.0</span></span></code></pre></div><p>Then to apply these changes, we issue the following command:</p>
+
+
+
+
+
+<pre tabindex="0"><code>$ sh /etc/netstart</code></pre><p>Then /etc/dhcpd.conf</p>
+
+
+
+
+
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-txt" data-lang="txt"><span class="line"><span class="ln"> 1</span><span class="cl"># Globals
+</span></span><span class="line"><span class="ln"> 2</span><span class="cl">option domain-name &#34;sigkill.no&#34;;
+</span></span><span class="line"><span class="ln"> 3</span><span class="cl">option domain-name-servers 192.168.1.2;
+</span></span><span class="line"><span class="ln"> 4</span><span class="cl">default-lease-time 600;
+</span></span><span class="line"><span class="ln"> 5</span><span class="cl">max-lease-time 7200;
+</span></span><span class="line"><span class="ln"> 6</span><span class="cl">
+</span></span><span class="line"><span class="ln"> 7</span><span class="cl"># Server subnet
+</span></span><span class="line"><span class="ln"> 8</span><span class="cl">subnet 192.168.1.0 netmask 255.255.255.0 {
+</span></span><span class="line"><span class="ln"> 9</span><span class="cl">    range 192.168.1.20 192.168.1.254;
+</span></span><span class="line"><span class="ln">10</span><span class="cl">    option routers 192.168.1.1;
+</span></span><span class="line"><span class="ln">11</span><span class="cl">    option subnet-mask 255.255.255.0;
+</span></span><span class="line"><span class="ln">12</span><span class="cl">    option broadcast-address 192.168.1.255;
+</span></span><span class="line"><span class="ln">13</span><span class="cl">}
+</span></span><span class="line"><span class="ln">14</span><span class="cl">
+</span></span><span class="line"><span class="ln">15</span><span class="cl"># VLAN 130
+</span></span><span class="line"><span class="ln">16</span><span class="cl">subnet 10.0.1.0 netmask 255.255.255.0 {
+</span></span><span class="line"><span class="ln">17</span><span class="cl">    range 10.0.1.20 10.0.1.254;
+</span></span><span class="line"><span class="ln">18</span><span class="cl">    option routers 10.0.1.1;
+</span></span><span class="line"><span class="ln">19</span><span class="cl">    option subnet-mask 255.255.255.0;
+</span></span><span class="line"><span class="ln">20</span><span class="cl">    option broadcast-address 10.0.1.255;
+</span></span><span class="line"><span class="ln">21</span><span class="cl">}
+</span></span><span class="line"><span class="ln">22</span><span class="cl">
+</span></span><span class="line"><span class="ln">23</span><span class="cl"># VLAN 140
+</span></span><span class="line"><span class="ln">24</span><span class="cl">subnet 10.0.4.0 netmask 255.255.255.0 {
+</span></span><span class="line"><span class="ln">25</span><span class="cl">    range 10.0.4.40 10.0.4.254;
+</span></span><span class="line"><span class="ln">26</span><span class="cl">    option routers 10.0.4.1;
+</span></span><span class="line"><span class="ln">27</span><span class="cl">    option subnet-mask 255.255.255.0;
+</span></span><span class="line"><span class="ln">28</span><span class="cl">    option broadcast-address 10.0.4.255;
+</span></span><span class="line"><span class="ln">29</span><span class="cl">    host jarvis {
+</span></span><span class="line"><span class="ln">30</span><span class="cl">        fixed-address 10.0.4.27;
+</span></span><span class="line"><span class="ln">31</span><span class="cl">        hardware ethernet dc:a6:32:77:3c:0d;
+</span></span><span class="line"><span class="ln">32</span><span class="cl">    }
+</span></span><span class="line"><span class="ln">33</span><span class="cl">}
+</span></span><span class="line"><span class="ln">34</span><span class="cl">
+</span></span><span class="line"><span class="ln">35</span><span class="cl"># VLAN 150
+</span></span><span class="line"><span class="ln">36</span><span class="cl">subnet 10.0.5.0 netmask 255.255.255.0 {
+</span></span><span class="line"><span class="ln">37</span><span class="cl">    range 10.0.5.10 10.0.5.254;
+</span></span><span class="line"><span class="ln">38</span><span class="cl">    option routers 10.0.5.1;
+</span></span><span class="line"><span class="ln">39</span><span class="cl">    option subnet-mask 255.255.255.0;
+</span></span><span class="line"><span class="ln">40</span><span class="cl">    option broadcast-address 10.0.5.255;
+</span></span><span class="line"><span class="ln">41</span><span class="cl">}</span></span></code></pre></div><p>Then installing dhcpcd for IPv6:</p>
+
+
+
+
+
+<pre tabindex="0"><code>$ pkg_add dhcpcd</code></pre><p>To have IPv6 working we need /etc/dhcpcd.conf</p>
+
+
+
+
+
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-txt" data-lang="txt"><span class="line"><span class="ln">1</span><span class="cl">...
+</span></span><span class="line"><span class="ln">2</span><span class="cl">allowinterfaces axen0 em0 vlan120 vlan130 vlan140 vlan150
+</span></span><span class="line"><span class="ln">3</span><span class="cl">
+</span></span><span class="line"><span class="ln">4</span><span class="cl">interface axen0
+</span></span><span class="line"><span class="ln">5</span><span class="cl">  ipv6rs
+</span></span><span class="line"><span class="ln">6</span><span class="cl">  ia_na 1
+</span></span><span class="line"><span class="ln">7</span><span class="cl">  ia_pd 2 em0/1 vlan120/2 vlan130/3 vlan140/4 vlan150/5</span></span></code></pre></div><p>aaaaand /etc/rad.conf</p>
+
+
+
+
+
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-txt" data-lang="txt"><span class="line"><span class="ln">1</span><span class="cl">interface em0
+</span></span><span class="line"><span class="ln">2</span><span class="cl">interface vlan120
+</span></span><span class="line"><span class="ln">3</span><span class="cl">interface vlan130
+</span></span><span class="line"><span class="ln">4</span><span class="cl">interface vlan140
+</span></span><span class="line"><span class="ln">5</span><span class="cl">interface vlan150</span></span></code></pre></div><p>After configuring dhcpd, dhcpcd and rad we have to enable and start the services:</p>
+
+
+
+
+
+<pre tabindex="0"><code>$ rcctl enable dhcpd; rcctl start dhcpd
+$ rcctl enable dhcpcd; rcctl start dhcpcd
+$ rcctl enable rad; rcctl start rad</code></pre><p>We also have to enable some kernel options</p>
+
+
+
+
+
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-txt" data-lang="txt"><span class="line"><span class="ln">1</span><span class="cl">net.inet.ip.forwarding=1
+</span></span><span class="line"><span class="ln">2</span><span class="cl">net.inet6.ip6.forwarding=1
+</span></span><span class="line"><span class="ln">3</span><span class="cl">net.inet.ip.mforwarding=1
+</span></span><span class="line"><span class="ln">4</span><span class="cl"># Since we are using a laptop we want to disable sleep when lid is closed...
+</span></span><span class="line"><span class="ln">5</span><span class="cl">machdep.lidaction=0</span></span></code></pre></div><p>Which we can make have apply right away without the need for a reboot:</p>
+
+
+
+
+
+<pre tabindex="0"><code>$ sysctl net.inet.ip.forwarding=1
+$ sysctl net.inet6.ip6.forwarding=1
+$ sysctl net.inet.ip.mforwarding=1
+$ sysctl machdep.lidaction=0</code></pre><p>The last configuration we have to do is /etc/pf.conf</p>
+
+
+
+
+
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-txt" data-lang="txt"><span class="line"><span class="ln"> 1</span><span class="cl"># Tables
+</span></span><span class="line"><span class="ln"> 2</span><span class="cl">table &lt;lan&gt; { 10.0.0.0/24 }
+</span></span><span class="line"><span class="ln"> 3</span><span class="cl">table &lt;vlan120&gt; { 192.168.1.0/24 }
+</span></span><span class="line"><span class="ln"> 4</span><span class="cl">table &lt;vlan130&gt; { 10.0.1.0/24 }
+</span></span><span class="line"><span class="ln"> 5</span><span class="cl">table &lt;vlan140&gt; { 10.0.4.0/24 }
+</span></span><span class="line"><span class="ln"> 6</span><span class="cl">table &lt;vlan150&gt; { 10.0.5.0/24 }
+</span></span><span class="line"><span class="ln"> 7</span><span class="cl">
+</span></span><span class="line"><span class="ln"> 8</span><span class="cl">table &lt;martians&gt; { 0.0.0.0/8 127.0.0.0/8 169.254.0.0/16 172.16.0.0/12 192.0.0.0/24 192.0.2.0/24 224.0.0.0/3 \
+</span></span><span class="line"><span class="ln"> 9</span><span class="cl">                   192.168.0.0/16 198.18.0.0/15 198.51.100.0/24 203.0.113.0/24 \
+</span></span><span class="line"><span class="ln">10</span><span class="cl">                   ::/128 ::/96 ::1/128 ::ffff:0:0/96 100::/64 2001:10::/28 2001:2::/48 2001:db8::/32 3ffe::/16 fec0::/10 fc00::/7 }
+</span></span><span class="line"><span class="ln">11</span><span class="cl">
+</span></span><span class="line"><span class="ln">12</span><span class="cl">icmp_types = &#34;{ echoreq, unreach }&#34;
+</span></span><span class="line"><span class="ln">13</span><span class="cl">
+</span></span><span class="line"><span class="ln">14</span><span class="cl"># Options
+</span></span><span class="line"><span class="ln">15</span><span class="cl">set skip on lo                # Don&#39;t filter on loopback interface
+</span></span><span class="line"><span class="ln">16</span><span class="cl">set block-policy drop
+</span></span><span class="line"><span class="ln">17</span><span class="cl">set loginterface egress
+</span></span><span class="line"><span class="ln">18</span><span class="cl">set optimization aggressive
+</span></span><span class="line"><span class="ln">19</span><span class="cl">set skip on lo
+</span></span><span class="line"><span class="ln">20</span><span class="cl">
+</span></span><span class="line"><span class="ln">21</span><span class="cl">block all
+</span></span><span class="line"><span class="ln">22</span><span class="cl">
+</span></span><span class="line"><span class="ln">23</span><span class="cl">match in all scrub (no-df random-id)
+</span></span><span class="line"><span class="ln">24</span><span class="cl">match out on egress inet from !(egress:network) to any nat-to (egress:0)
+</span></span><span class="line"><span class="ln">25</span><span class="cl">antispoof for egress
+</span></span><span class="line"><span class="ln">26</span><span class="cl">
+</span></span><span class="line"><span class="ln">27</span><span class="cl">pass out inet
+</span></span><span class="line"><span class="ln">28</span><span class="cl">pass out inet6
+</span></span><span class="line"><span class="ln">29</span><span class="cl">pass in on { lan vlan120 vlan130 vlan140 vlan150 } inet
+</span></span><span class="line"><span class="ln">30</span><span class="cl">pass in on { lan vlan120 vlan130 vlan140 vlan150 } inet6
+</span></span><span class="line"><span class="ln">31</span><span class="cl">
+</span></span><span class="line"><span class="ln">32</span><span class="cl">block in on egress from any to &lt;martians&gt;
+</span></span><span class="line"><span class="ln">33</span><span class="cl">
+</span></span><span class="line"><span class="ln">34</span><span class="cl"># Block all other traffic from VLAN 140 to VLAN 120
+</span></span><span class="line"><span class="ln">35</span><span class="cl">block in log on vlan140 from vlan140:network to vlan120:network
+</span></span><span class="line"><span class="ln">36</span><span class="cl">
+</span></span><span class="line"><span class="ln">37</span><span class="cl">pass out on egress inet proto udp to port 33433:33626
+</span></span><span class="line"><span class="ln">38</span><span class="cl">pass inet proto icmp icmp-type $icmp_types
+</span></span><span class="line"><span class="ln">39</span><span class="cl">
+</span></span><span class="line"><span class="ln">40</span><span class="cl">pass in on egress inet6 proto udp \
+</span></span><span class="line"><span class="ln">41</span><span class="cl">  from fe80::/10 port dhcpv6-server \
+</span></span><span class="line"><span class="ln">42</span><span class="cl">  to fe80::/10 port dhcpv6-client \
+</span></span><span class="line"><span class="ln">43</span><span class="cl">  no state
+</span></span><span class="line"><span class="ln">44</span><span class="cl">
+</span></span><span class="line"><span class="ln">45</span><span class="cl">pass out on egress inet6 proto udp from any to any port 33433 &gt;&lt; 33626 keep state
+</span></span><span class="line"><span class="ln">46</span><span class="cl">pass inet6 proto icmp6 all
+</span></span><span class="line"><span class="ln">47</span><span class="cl">
+</span></span><span class="line"><span class="ln">48</span><span class="cl"># For the trusted and work LAN&#39;s, allow devices to talk with the other devices in their respective network.
+</span></span><span class="line"><span class="ln">49</span><span class="cl">pass on vlan120 from vlan120:network to vlan120:network
+</span></span><span class="line"><span class="ln">50</span><span class="cl">pass on vlan130 from vlan130:network to vlan130:network
+</span></span><span class="line"><span class="ln">51</span><span class="cl">pass on vlan140 from vlan140:network to vlan140:network
+</span></span><span class="line"><span class="ln">52</span><span class="cl">
+</span></span><span class="line"><span class="ln">53</span><span class="cl">pass in log on egress proto tcp from any to any port 22 rdr-to 192.168.1.2
+</span></span><span class="line"><span class="ln">54</span><span class="cl">pass in log on egress proto udp from any to any port 51820 rdr-to 192.168.1.2
+</span></span><span class="line"><span class="ln">55</span><span class="cl">
+</span></span><span class="line"><span class="ln">56</span><span class="cl"># Allow multicast networking
+</span></span><span class="line"><span class="ln">57</span><span class="cl">pass on { vlan120 vlan130 vlan140 } proto igmp all allow-opts
+</span></span><span class="line"><span class="ln">58</span><span class="cl">pass on { vlan120 vlan130 vlan140 } inet proto udp from any to 224.0.0.0/4
+</span></span><span class="line"><span class="ln">59</span><span class="cl">pass on { vlan120 vlan130 vlan140 } inet6 proto udp from any to ff00::/8
+</span></span><span class="line"><span class="ln">60</span><span class="cl">
+</span></span><span class="line"><span class="ln">61</span><span class="cl"># Allow mDNS
+</span></span><span class="line"><span class="ln">62</span><span class="cl">pass inet proto udp from any to 224.0.0.251 port { mdns } allow-opts
+</span></span><span class="line"><span class="ln">63</span><span class="cl">pass inet6 proto udp from any to ff02::fb port { mdns } allow-opts
+</span></span><span class="line"><span class="ln">64</span><span class="cl">
+</span></span><span class="line"><span class="ln">65</span><span class="cl"># Allow from IOT vlan to server
+</span></span><span class="line"><span class="ln">66</span><span class="cl">pass in on vlan140 proto tcp from vlan140:network to 192.168.1.2 port 8096
+</span></span><span class="line"><span class="ln">67</span><span class="cl">pass in on vlan140 proto udp from vlan140:network to 192.168.1.2 port 53</span></span></code></pre></div><p>Which we have to apply by issuing the following command:</p>
+
+
+
+
+
+<pre tabindex="0"><code>$ pfctl -f /etc/pf.conf</code></pre><p>At this point everything <em>should</em> just work.</p>
+<p>I would highly recommend to read the extremeley good man pages for
+<a href="https://man.openbsd.org/ifconfig">ifconfig(8)</a>,
+<a href="https://man.openbsd.org/dhcpd">dhcpd(8)</a>,
+<a href="https://man.openbsd.org/rad">rad.(8)</a>
+and <a href="https://man.openbsd.org/pfctl.8">pfctl(8)</a></p>
+<p>It would probably also be a good idea to have a look at how to configure those
+things:
+<a href="https://man.openbsd.org/hostname.if">hostname.if(5)</a>,
+<a href="https://man.openbsd.org/dhcpd.conf">dhcpd.conf(5)</a>,
+<a href="https://man.openbsd.org/rad.conf">rad.conf(5)</a>
+and <a href="https://man.openbsd.org/pf.conf.5">pf.conf(5)</a></p>
+<h2 id="making-sure-we-save-config-files-somewhere">Making sure we save config files somewhere</h2>
+<p>To keep my dotfiles saved on git I&rsquo;ve settled on the simple solution of just having a bare git repository with <code>$HOME</code> as the working tree. I found this awesome way of keeping dotfiles over at a really great <a href="https://www.atlassian.com/git/tutorials/dotfiles">atlassian blogpost</a>. This same system can be used to save the configuration files for the router, just using <code>/</code> as our working tree:</p>
+
+
+
+
+
+<pre tabindex="0"><code>$ git init --bare /.cfg
+$ alias config=&#39;/usr/bin/git --git-dir=/.cfg/ --work-tree=/&#39;
+# To make the alias stick:
+$ echo &#34;alias config=&#39;/usr/bin/git --git-dir=/.cfg/ --work-tree=/&#39;&#34; &gt;&gt; /root/.profile
+$ config add /etc/hostname.* /etc/dhcpd.conf /etc/dhcpcd.conf /etc/rad.conf /etc/pf.conf /etc/sysctl.conf
+$ config commit -m &#34;feat: adding all config files&#34;
+$ config push</code></pre><h2 id="the-permanent-solution">The permanent solution</h2>
+<p>To replace the PC Engines APU4 router I looked for something with the following requirements:</p>
+<ul>
+<li>Passively cooled</li>
+<li>Low power consumption</li>
+<li>Still supported</li>
+<li>At least two network interfaces</li>
+<li>Open source BIOS, preferably Coreboot
+That last requirement really narrows the choice down, as there is, unfortunately, a lack of vendors willing to use open source BIOSes (ADD CONTEXT?).</li>
+</ul>
+<p>I ended up buying a <a href="https://starlabs.systems/pages/byte">Byte from Star Labs</a> which checked all of those boxes.</p>
+<p>To apply the config files from this repo we created previously to our new router:</p>
+<p>Install needed packages:</p>
+
+
+
+
+
+<pre tabindex="0"><code>$ pkg_add vim dhcpcd git</code></pre><p>Configure the working tree:</p>
+
+
+
+
+
+<pre tabindex="0"><code>$ alias config=&#39;/usr/bin/git --git-dir=/.cfg/ --work-tree=/&#39;
+$ echo &#34;alias config=&#39;/usr/bin/git --git-dir=/.cfg/ --work-tree=/&#39;&#34; &gt;&gt; /root/.profile
+$ git clone --bare git@git.sr.ht:~cr4sh0v3rrid3/openbsd-router /.cfg
+$ config checkout</code></pre><p>At this point be want rename some of the <code>/etc/hostname.</code> files to use the correct network interfaces, as well as updating all the vlan interfaces with the same changes. So we replace <code>axen0</code> with <code>re0</code> and <code>em0</code> with <code>rge0</code></p>
+<p>Then you have to enable some services</p>
+
+
+
+
+
+<pre tabindex="0"><code>$ rcctl enable dhcpd
+$ rcctl enable dhcpcd
+$ rcctl enable rad</code></pre><p>To end it of just reboot the machine and plug in the correct cables to the correct
+interfaces.</p>
+<h2 id="conclusion">Conclusion</h2>
+<p>So I finally got myself around to setting up a OpenBSD router! And now that I&rsquo;ve used this setup for about a week I&rsquo;m extremely happy and satisfied.</p>
+<p>All the configuration files mentioned and used in this post can be found over at  my <a href="https://git.sr.ht/~cr4sh0v3rrid3/openbsd-router">git.sr.ht</a> repo!</p>
+]]></content:encoded>
+    </item>
     <item>
       <title>Alacritty terminfo</title>
-      <link>https://sigkill.no/blog/alacritty_terminfo/</link>
+      <link>http://localhost:1313/blog/alacritty_terminfo/</link>
       <pubDate>Fri, 05 Apr 2024 00:00:00 +0000</pubDate><author>cr4sh@sigkill.no (cr4sh0v3rrid3)</author>
-      <guid>https://sigkill.no/blog/alacritty_terminfo/</guid>
+      <guid>http://localhost:1313/blog/alacritty_terminfo/</guid>
       <description>To get alacritty to work with remote hosts:&#xA;$ infocmp &amp;gt; al.txt $ scp al.txt &amp;lt;user&amp;gt;@&amp;lt;host&amp;gt;:~/ # On the remote host: $ tic -x al.txtWhat does &amp;ldquo;tic -x&amp;rdquo; do? $ man tic ... -x Treat unknown capabilities as user-defined (see user_caps(5)). That is, if you supply a capability name which tic does not recognize, it will infer its type (Boolean, number or string) from the syntax and make an extended table entry for that.</description>
       <content:encoded><![CDATA[<p>To get alacritty to work with remote hosts:</p>
 
@@ -49,9 +387,9 @@ $ tic -x al.txt</code></pre><h3 id="what-does-tic--x-do">What does &ldquo;tic -x
     </item>
     <item>
       <title>Hello World!</title>
-      <link>https://sigkill.no/blog/hello_world/</link>
+      <link>http://localhost:1313/blog/hello_world/</link>
       <pubDate>Fri, 05 Apr 2024 00:00:00 +0000</pubDate><author>cr4sh@sigkill.no (cr4sh0v3rrid3)</author>
-      <guid>https://sigkill.no/blog/hello_world/</guid>
+      <guid>http://localhost:1313/blog/hello_world/</guid>
       <description>I did it! I finally found time to actually put up a blog. As part of loving the simplicity of the old web and as a avid complainer of how modern websites are way to bloated, I&amp;rsquo;ve made an attemt at keepubg this blog as simple as possible.&#xA;Instead of spinning my own theme I ended up using a pre-made one, simpliy because I found one that had exactly what I needed and nothing else.</description>
       <content:encoded><![CDATA[<p>I did it! I finally found time to actually put up a blog. As part of loving
 the simplicity of the old web and as a avid complainer of how modern websites

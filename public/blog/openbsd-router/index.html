@@ -1,23 +1,117 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
-  <channel>
-    <title>SIGKILL</title>
-    <link>http://localhost:1313/</link>
-    <description>Recent content on SIGKILL</description>
-    <generator>Hugo -- gohugo.io</generator>
-    <language>en-US</language>
-    <managingEditor>cr4sh@sigkill.no (cr4sh0v3rrid3)</managingEditor>
-    <webMaster>cr4sh@sigkill.no (cr4sh0v3rrid3)</webMaster>
-    <copyright>cr4sh0v3rrid3 (CC BY 4.0)</copyright>
-    <lastBuildDate>Fri, 30 Aug 2024 00:00:00 +0000</lastBuildDate>
-    <atom:link href="http://localhost:1313/index.xml" rel="self" type="application/rss+xml" />
-    <item>
-      <title>OpenBSD router in a hurry!</title>
-      <link>http://localhost:1313/blog/openbsd-router/</link>
-      <pubDate>Fri, 30 Aug 2024 00:00:00 +0000</pubDate><author>cr4sh@sigkill.no (cr4sh0v3rrid3)</author>
-      <guid>http://localhost:1313/blog/openbsd-router/</guid>
-      <description>How I got myself into this situation My old router decided to migrate into the eternal life as e-waste the other day. It completely died; not even showing signs of life on the console port! For over 8 years it had been serving internet for me and my wife more or less 24/7, so it probably felt it was time to retire after a long and prosperous life of packet shuffling.</description>
-      <content:encoded><![CDATA[<h2 id="how-i-got-myself-into-this-situation">How I got myself into this situation</h2>
+<!DOCTYPE html>
+<html lang="en-US">
+
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+  <meta http-equiv="X-Clacks-Overhead" content="GNU Terry Pratchett" />
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link rel="shortcut icon" href="http://localhost:1313/images/favicon.png" />
+<title>OpenBSD router in a hurry! | SIGKILL</title>
+<meta name="title" content="OpenBSD router in a hurry!" />
+<meta name="description" content="Setting up a new OpenBSD router in a hurry!" />
+<meta name="keywords" content="OpenBSD," />
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+<meta property="og:title" content="OpenBSD router in a hurry!" />
+<meta property="og:description" content="Setting up a new OpenBSD router in a hurry!" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://localhost:1313/blog/openbsd-router/" />
+
+<meta property="og:image" content="http://localhost:1313/images/social_card_bg_hu18430268475798971255.webp"/><meta property="article:section" content="blog" />
+<meta property="article:published_time" content="2024-08-30T00:00:00+00:00" />
+<meta property="article:modified_time" content="2024-08-30T00:00:00+00:00" /><meta property="og:site_name" content="SIGKILL" />
+<meta property="fb:admins" content="0000000000" />
+
+
+
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="http://localhost:1313/images/social_card_bg_hu18430268475798971255.webp"/>
+<meta name="twitter:title" content="OpenBSD router in a hurry!"/>
+<meta name="twitter:description" content="Setting up a new OpenBSD router in a hurry!"/>
+<meta name="twitter:site" content="@example"/>
+
+
+
+<meta itemprop="name" content="OpenBSD router in a hurry!">
+<meta itemprop="description" content="Setting up a new OpenBSD router in a hurry!"><meta itemprop="datePublished" content="2024-08-30T00:00:00+00:00" />
+<meta itemprop="dateModified" content="2024-08-30T00:00:00+00:00" />
+<meta itemprop="wordCount" content="1642">
+
+<meta itemprop="image" content="http://localhost:1313/images/social_card_bg_hu18430268475798971255.webp"/>
+
+
+<meta itemprop="keywords" content="OpenBSD," />
+
+<meta name="referrer" content="no-referrer-when-downgrade" />
+
+  
+  <link href="/original.min.css" rel="stylesheet">
+
+  
+    
+    <link href="/syntax.min.css" rel="stylesheet">
+  
+
+  
+
+  
+</head>
+
+<body>
+  <header><a class="skip-link" href="#main-content">Skip to main content</a>
+
+<a href="/" class="title"><h1>SIGKILL</h1></a>
+<nav>
+  <a href="/">Home</a>
+
+  <a href="/blog/">Blog</a>
+
+<a href='http://localhost:1313/index.xml'>RSS</a>
+
+
+
+
+
+
+
+</nav>
+</header>
+  <main id="main-content">
+
+<h1>OpenBSD router in a hurry!</h1>
+<p class="byline">
+  <time datetime='2024-08-30' pubdate>
+    2024-08-30
+  </time>
+  · cr4sh0v3rrid3
+</p>
+
+<content>
+  <h2 id="how-i-got-myself-into-this-situation">How I got myself into this situation</h2>
 <p>My old router decided to migrate into the eternal life as e-waste the other day. It completely died; not even showing signs of life on the console port! For over 8 years it had been serving internet for me and my wife more or less 24/7, so it probably felt it was time to retire after a long and prosperous life of packet shuffling.</p>
 <p>The, now dead, router was a PC Engines APU4C4, which I bought from teklager.se. For the duration of its life it ran pfSense, which I had lots of issues with the entire time. If it weren&rsquo;t for the fact that downtime would affect my wife as well, I would have installed something else a long time ago. But I digress.</p>
 <p>I was luck this time since the router died while my wife was gone on a work related trip. That meant that I had a bit over one day to fix something new. Now, the challenge in this case was that my network topology is rather complicated compared to the &ldquo;normal&rdquo; networks found in the average home. I have taken the time to segment the network, by creating segments for WLAN, the servers, IoT and a subnet for even less trusted devices than the IoT subnet&hellip; As the wise and experienced network administrator I am I had of course not stored a backup anywhere accessible!</p>
@@ -347,63 +441,27 @@ interfaces.</p>
 <h2 id="conclusion">Conclusion</h2>
 <p>So I finally got myself around to setting up a OpenBSD router! And now that I&rsquo;ve used this setup for about a week I&rsquo;m extremely happy and satisfied.</p>
 <p>All the configuration files mentioned and used in this post can be found over at  my <a href="https://git.sr.ht/~cr4sh0v3rrid3/openbsd-router">git.sr.ht</a> repo!</p>
-]]></content:encoded>
-    </item>
-    <item>
-      <title>Alacritty terminfo</title>
-      <link>http://localhost:1313/blog/alacritty_terminfo/</link>
-      <pubDate>Fri, 05 Apr 2024 00:00:00 +0000</pubDate><author>cr4sh@sigkill.no (cr4sh0v3rrid3)</author>
-      <guid>http://localhost:1313/blog/alacritty_terminfo/</guid>
-      <description>To get alacritty to work with remote hosts:&#xA;$ infocmp &amp;gt; al.txt $ scp al.txt &amp;lt;user&amp;gt;@&amp;lt;host&amp;gt;:~/ # On the remote host: $ tic -x al.txtWhat does &amp;ldquo;tic -x&amp;rdquo; do? $ man tic ... -x Treat unknown capabilities as user-defined (see user_caps(5)). That is, if you supply a capability name which tic does not recognize, it will infer its type (Boolean, number or string) from the syntax and make an extended table entry for that.</description>
-      <content:encoded><![CDATA[<p>To get alacritty to work with remote hosts:</p>
+
+</content>
+<p>
+  
+    <a class="blog-tags" href="/tags/openbsd/">#openbsd</a>
+  
+</p>
+
+  <p>
+    <a href='mailto:cr4sh@sigkill.no?subject=Reply%20to%20"OpenBSD%20router%20in%20a%20hurry%21"'>
+      Reply to this post by email ↪
+    </a>
+  </p>
 
 
+  </main>
+  <footer><small>
+  cr4sh0v3rrid3 (CC BY 4.0) | Made with <a href="https://github.com/clente/hugo-bearcub">Bear Cub</a>
+</small></footer>
 
+    
+</body>
 
-
-<pre tabindex="0"><code>$ infocmp &gt; al.txt
-$ scp al.txt &lt;user&gt;@&lt;host&gt;:~/
-
-# On the remote host:
-$ tic -x al.txt</code></pre><h3 id="what-does-tic--x-do">What does &ldquo;tic -x&rdquo; do?</h3>
-
-
-
-
-
-<pre tabindex="0"><code>$ man tic
-...
-       -x   Treat unknown capabilities as user-defined (see user_caps(5)).  That is, if you supply a capability name which tic does not  recognize,  it  will  infer  its  type
-            (Boolean,  number  or string) from the syntax and make an extended table entry for that.  User-defined capability strings whose name begins with “k” are treated as
-            function keys.
-...</code></pre><h2 id="one-liner">One liner</h2>
-<p>Note: this is stolen from the <a href="https://wiki.archlinux.org/title/Alacritty#Terminal_functionality_unavailable_in_remote_shells">archwiki</a></p>
-
-
-
-
-
-<pre tabindex="0"><code>$ infocmp | ssh &#34;$user@$host&#34; &#39;tic -x /dev/stdin&#39;</code></pre>]]></content:encoded>
-    </item>
-    <item>
-      <title>Hello World!</title>
-      <link>http://localhost:1313/blog/hello_world/</link>
-      <pubDate>Fri, 05 Apr 2024 00:00:00 +0000</pubDate><author>cr4sh@sigkill.no (cr4sh0v3rrid3)</author>
-      <guid>http://localhost:1313/blog/hello_world/</guid>
-      <description>I did it! I finally found time to actually put up a blog. As part of loving the simplicity of the old web and as a avid complainer of how modern websites are way to bloated, I&amp;rsquo;ve made an attemt at keepubg this blog as simple as possible.&#xA;Instead of spinning my own theme I ended up using a pre-made one, simpliy because I found one that had exactly what I needed and nothing else.</description>
-      <content:encoded><![CDATA[<p>I did it! I finally found time to actually put up a blog. As part of loving
-the simplicity of the old web and as a avid complainer of how modern websites
-are way to bloated, I&rsquo;ve made an attemt at keepubg this blog as simple as
-possible.</p>
-<p>Instead of spinning my own theme I ended up using a pre-made one, simpliy because
-I found one that had exactly what I needed and nothing else. The styling is simple
-and it&rsquo;s one of the few themes out there without any JS. The theme can be found
-over at <a href="https://github.com/clente/hugo-bearcub">GitHub</a></p>
-<p>So what can you expect from this blog? Well&hellip; I won&rsquo;t promise too much, but I
-will at least try to use it as a personal journal where I share my thoughs and
-notes on everything ranging from how to configure IRC bouncers to why I think
-AI right now is just a fad.</p>
-]]></content:encoded>
-    </item>
-  </channel>
-</rss>
+</html>

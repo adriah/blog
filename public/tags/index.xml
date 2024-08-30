@@ -2,36 +2,44 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
     <title>Tags on SIGKILL</title>
-    <link>https://sigkill.no/tags/</link>
+    <link>http://localhost:1313/tags/</link>
     <description>Recent content in Tags on SIGKILL</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-US</language>
     <managingEditor>cr4sh@sigkill.no (cr4sh0v3rrid3)</managingEditor>
     <webMaster>cr4sh@sigkill.no (cr4sh0v3rrid3)</webMaster>
     <copyright>cr4sh0v3rrid3 (CC BY 4.0)</copyright>
-    <lastBuildDate>Fri, 05 Apr 2024 00:00:00 +0000</lastBuildDate>
-    <atom:link href="https://sigkill.no/tags/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Fri, 30 Aug 2024 00:00:00 +0000</lastBuildDate>
+    <atom:link href="http://localhost:1313/tags/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>OpenBSD</title>
+      <link>http://localhost:1313/tags/openbsd/</link>
+      <pubDate>Fri, 30 Aug 2024 00:00:00 +0000</pubDate><author>cr4sh@sigkill.no (cr4sh0v3rrid3)</author>
+      <guid>http://localhost:1313/tags/openbsd/</guid>
+      <description></description>
+      <content:encoded><![CDATA[]]></content:encoded>
+    </item>
     <item>
       <title>Howto</title>
-      <link>https://sigkill.no/tags/howto/</link>
+      <link>http://localhost:1313/tags/howto/</link>
       <pubDate>Fri, 05 Apr 2024 00:00:00 +0000</pubDate><author>cr4sh@sigkill.no (cr4sh0v3rrid3)</author>
-      <guid>https://sigkill.no/tags/howto/</guid>
+      <guid>http://localhost:1313/tags/howto/</guid>
       <description></description>
       <content:encoded><![CDATA[]]></content:encoded>
     </item>
     <item>
       <title>Linux</title>
-      <link>https://sigkill.no/tags/linux/</link>
+      <link>http://localhost:1313/tags/linux/</link>
       <pubDate>Fri, 05 Apr 2024 00:00:00 +0000</pubDate><author>cr4sh@sigkill.no (cr4sh0v3rrid3)</author>
-      <guid>https://sigkill.no/tags/linux/</guid>
+      <guid>http://localhost:1313/tags/linux/</guid>
       <description></description>
       <content:encoded><![CDATA[]]></content:encoded>
     </item>
     <item>
       <title>Rant</title>
-      <link>https://sigkill.no/tags/rant/</link>
+      <link>http://localhost:1313/tags/rant/</link>
       <pubDate>Fri, 05 Apr 2024 00:00:00 +0000</pubDate><author>cr4sh@sigkill.no (cr4sh0v3rrid3)</author>
-      <guid>https://sigkill.no/tags/rant/</guid>
+      <guid>http://localhost:1313/tags/rant/</guid>
       <description></description>
       <content:encoded><![CDATA[]]></content:encoded>
     </item>
