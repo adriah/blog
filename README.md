@@ -12,7 +12,7 @@ This repository contains the source code for my Hugo-based blog. Hugo is a fast 
 
 1. **Clone the Repository**
    ```bash
-   git clone https://github.com/yourusername/yourhugoblog.git
+   git clone https://github.com/adriah/blog.git
    cd yourhugoblog
    ```
 
