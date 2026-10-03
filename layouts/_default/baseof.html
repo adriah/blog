@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="{{ .Site.Language.Locale | default "en" }}">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#090a0b">
+  <meta http-equiv="X-Clacks-Overhead" content="GNU Terry Pratchett">
+  {{ $title := cond .IsHome "sigkill.no — The last signal" (printf "%s / sigkill.no" .Title) }}
+  {{ $description := .Description | default .Site.Params.description }}
+  <title>{{ $title }}</title>
+  <meta name="description" content="{{ $description }}">
+  <link rel="canonical" href="{{ .Permalink }}">
+  <meta property="og:title" content="{{ $title }}">
+  <meta property="og:description" content="{{ $description }}">
+  <meta property="og:url" content="{{ .Permalink }}">
+  <meta property="og:site_name" content="sigkill.no">
+  <meta property="og:type" content="{{ if and .IsPage (eq .Section "blog") }}article{{ else }}website{{ end }}">
+  <meta name="twitter:card" content="summary">
+  <link rel="icon" href="{{ "favicon.svg" | relURL }}" type="image/svg+xml">
+  {{ $style := resources.Get "signal.css" | minify | fingerprint }}
+  <link rel="stylesheet" href="{{ $style.RelPermalink }}" integrity="{{ $style.Data.Integrity }}">
+  <link rel="alternate" type="application/rss+xml" title="sigkill.no / Notes" href="{{ "blog/index.xml" | relURL }}">
+  {{ with .OutputFormats.Get "rss" }}{{ if ne $.Section "blog" }}
+  <link rel="alternate" type="application/rss+xml" title="{{ $.Title }}" href="{{ .RelPermalink }}">
+  {{ end }}{{ end }}
+</head>
+<body class="{{ if .IsHome }}home{{ else }}interior{{ end }}">
+  <a class="skip-link" href="#main-content">Skip to content</a>
+  {{ if not .IsHome }}
+  <header class="site-header">
+    <a class="brand" href="{{ "" | relURL }}" aria-label="sigkill.no home"><span class="kill-mark" aria-hidden="true"></span>{{ if .IsHome }}<span class="brand-caption">SIGNAL / 09</span>{{ else }}sigkill<span class="muted">.no</span>{{ end }}</a>
+    <nav class="header-nav" aria-label="Main navigation">
+      {{ if not .IsHome }}<a href="{{ "blog/" | relURL }}"{{ if eq .Section "blog" }} aria-current="{{ if .IsPage }}location{{ else }}page{{ end }}"{{ end }}>Notes</a>{{ end }}
+      <a href="{{ "about/" | relURL }}"{{ if eq .RelPermalink ("about/" | relURL) }} aria-current="page"{{ end }}>{{ if .IsHome }}An independent corner of the internet <span aria-hidden="true">↗</span>{{ else }}Elsewhere <span aria-hidden="true">↗</span>{{ end }}</a>
+    </nav>
+  </header>
+  {{ end }}
+  <main id="main-content">{{ block "main" . }}{{ end }}</main>
+  {{ if not .IsHome }}
+  <footer class="site-footer">
+    <span><span class="status-dot" aria-hidden="true"></span> LOCALLY ADMINISTERED</span>
+    <span class="footer-location">NORWAY <span class="muted">/</span> {{ .Site.Params.author.name }}</span>
+    <a href="{{ "blog/index.xml" | relURL }}">RSS <span aria-hidden="true">↗</span></a>
+  </footer>
+  {{ end }}
+</body>
+</html>

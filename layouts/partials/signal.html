@@ -1,0 +1,14 @@
+{{ $wave := "M0 140H110L126 132L144 153L162 114L182 178L205 81L229 206L254 47L281 239L307 31L332 248L358 52L382 216L406 80L430 191L454 107L478 163L495 129L512 147L528 140H1600" }}
+<svg class="signal-trace" viewBox="0 0 1600 280" fill="none" preserveAspectRatio="none" aria-hidden="true">
+  <defs>
+    <linearGradient id="trace-color"><stop stop-color="#ff514b" stop-opacity="0"/><stop offset=".12" stop-color="#ff514b" stop-opacity=".65"/><stop offset=".49" stop-color="#ff6960"/><stop offset=".65" stop-color="#ff514b" stop-opacity=".4"/><stop offset="1" stop-color="#ff514b" stop-opacity="0"/></linearGradient>
+  </defs>
+  {{/* Direct paths share one normalized length. Scaling strokes with their path keeps the dash positions consistent at every viewport size. */}}
+  <path class="trace-afterimage" pathLength="1000" d="{{ $wave }}" stroke="#ff514b" stroke-width="5"/>
+  <path class="trace-line" pathLength="1000" d="{{ $wave }}" stroke="url(#trace-color)" stroke-width="1.5"/>
+  <g class="glow-forward">
+    <path class="trace-trail" pathLength="1000" d="{{ $wave }}"/>
+    <path class="trace-trail trace-trail-inner" pathLength="1000" d="{{ $wave }}"/>
+    <path class="trace-tip" pathLength="1000" d="{{ $wave }}"/>
+  </g>
+</svg>

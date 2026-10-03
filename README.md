@@ -1,71 +1,55 @@
-# My Hugo Blog
+# sigkill.no
 
-This repository contains the source code for my Hugo-based blog. Hugo is a fast and modern static site generator written in Go, known for its speed and flexibility. This README provides instructions to set up, customize, and deploy your own blog using this repository.
+A personal landing page and notes archive, built with Hugo. The design is **The last signal**: bone-white typography, a red waveform that falls silent, and a dark editorial layout for occasional writing.
 
-## Prerequisites
+The four original concepts are saved in [docs/site-concepts.md](docs/site-concepts.md).
 
-- [Hugo](https://gohugo.io/getting-started/installing/) (v0.58.0 or later)
-- Git
-- A text editor or IDE
+## Develop
 
-## Getting Started
+Install a current Hugo release (validated with 0.165.0). The Bear Cub theme remains a Git submodule; initialize it if cloning afresh:
 
-1. **Clone the Repository**
-   ```bash
-   git clone https://github.com/adriah/blog.git
-   cd yourhugoblog
-   ```
+```sh
+git submodule update --init --recursive
+hugo server -D
+```
 
-2. **Install Dependencies**
-   If your theme requires Node.js or other dependencies, ensure they are installed as per the theme documentation.
+Open the URL Hugo prints, normally `http://localhost:1313/`.
 
-3. **Run the Hugo Server**
-   ```bash
-   hugo server -D
-   ```
-   Visit `http://localhost:1313` in your web browser to see your site in development mode, including draft content.
+## Write
 
-## Customizing Your Blog
+Articles stay in `content/blog/`, and existing `/blog/` URLs are preserved. The section is labelled **Notes**. Add a note with:
 
-1. **Themes**
-   - The theme used is specified in the `config.toml` file.
-   - You can change the theme by updating the `theme` parameter in `config.toml` and replacing the theme files.
+```sh
+hugo new content blog/my-note.md
+```
 
-2. **Site Configuration**
-   - Edit `config.toml` to set metadata, including the site's title, description, language, and more.
+Set its title, date, description and optional tags in the front matter, write Markdown, and remove the draft flag (`draft = true` in TOML) when ready. Existing notes use TOML front matter as does the current `archetypes/default.md`.
 
-3. **Adding Content**
-   - Create new posts using:
-     ```bash
-     hugo new posts/your-post-title.md
-     ```
-   - Files are stored in the `content/posts` directory. Use Markdown to write your content.
+`content/about.md` supplies the Elsewhere page. `content/_index.md` preserves the original introduction for reference; the new landing page is composed in `layouts/index.html`.
 
-4. **Static Files**
-   - Add static resources such as images, CSS, and JavaScript in the `static` directory.
+## Design
 
-## Building and Deployment
+- `assets/signal.css`: shared palette, typography, landing scene, archive, article and responsive styles.
+- `layouts/partials/signal.html`: decorative waveform.
+- `layouts/_default/`: shared shell, archive, article and code-block layouts.
+- `static/favicon.svg`: signal termination mark.
 
-1. **Build Your Site**
-   ```bash
-   hugo
-   ```
-   The static site will be generated in the `public` directory.
+The production site needs no JavaScript, webfonts, third-party requests or application server. Each 13-second cycle draws the signal left to right in a 1.3-second burst, sends a glow along the full path over 10.4 seconds, then erases the line left to right over 1.3 seconds before repeating. It respects reduced-motion preferences. Code blocks are keyboard-focusable and horizontally scrollable. RSS is available at `/blog/index.xml`; tags and the existing article URLs remain available.
 
-2. **Deploy Your Site**
-   - You can deploy your site using various services. Common options include GitHub Pages, Netlify, and Vercel.
-   - Follow the specific guidelines of the chosen platform for deployment instructions.
+## Build and deploy
 
-## Contributing
+```sh
+hugo --minify
+```
 
-Feel free to open issues or submit pull requests for improvements or bug fixes.
+Hugo writes the static site to `public/`. The existing SourceHut `.build.yml` builds and deploys this directory to sigkill.no with rsync.
 
-## License
+For an isolated validation build that does not touch existing generated files:
 
-This project is licensed under the MIT License. See the [`LICENSE`](LICENSE) file for details.
+```sh
+hugo --minify --destination /private/tmp/sigkill-build
+```
 
-## Acknowledgments
+No Node dependencies or asset-generation services are required.
 
-- [Hugo Documentation](https://gohugo.io/documentation/)
-- [Hugo Themes](https://themes.gohugo.io/)
-
+A separate, owner-only Sites preview is registered in `.openai/hosting.json`. To build its static output, run `hugo --minify --destination dist --baseURL https://sigkill-last-signal.mnemonic-2945.chatgpt.site/`. Production deployment to sigkill.no still uses the SourceHut workflow above.

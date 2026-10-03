@@ -1,0 +1,22 @@
+{{ define "main" }}
+<section class="landing" aria-labelledby="identity">
+  <div class="identity">
+    <div class="wordmark">
+      <div class="hero-signal">{{ partial "signal.html" . }}</div>
+      <h1 id="identity">sigkill<span>.no</span></h1>
+    </div>
+    <p class="eyebrow hero-eyebrow">CANNOT BE CAUGHT. CANNOT BE IGNORED.</p>
+    <nav class="landing-nav" aria-label="Explore">
+      <a class="primary-link" href="{{ "blog/" | relURL }}">Notes <span aria-hidden="true">↗</span></a>
+      <a href="https://sr.ht/~cr4sh0v3rrid3/">Projects <span aria-hidden="true">↗</span></a>
+      <a href="{{ "about/" | relURL }}">Elsewhere <span aria-hidden="true">↗</span></a>
+      <a href="{{ "blog/index.xml" | relURL }}">RSS <span aria-hidden="true">↗</span></a>
+    </nav>
+  </div>
+  <div class="landing-bottom">
+    {{ range first 1 (where .Site.RegularPages "Section" "blog").ByDate.Reverse }}
+    <a class="latest-note" href="{{ .RelPermalink }}"><span class="eyebrow">LAST TRANSMISSION</span><span>{{ .Title }} <span aria-hidden="true">↗</span></span></a>
+    {{ end }}
+  </div>
+</section>
+{{ end }}

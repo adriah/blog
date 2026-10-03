@@ -1,0 +1,27 @@
+{{ define "main" }}
+<div class="page-shell">
+  <header class="page-heading">
+    <p class="eyebrow"><a href="{{ "" | relURL }}">SIGKILL.NO</a> <span class="red">/</span> THE ARCHIVE</p>
+    <h1>{{ if eq .Kind "term" }}#{{ .Title }}{{ else }}{{ .Title }}{{ end }}<span class="red">.</span></h1>
+    {{ if eq .Section "blog" }}<p class="page-intro">Things figured out. Things written down.<br>Notes from an independently operated corner of the internet.</p>{{ else if eq .Kind "term" }}<p class="page-intro">Notes filed under {{ .Title }}. <a class="text-link" href="{{ "blog/" | relURL }}">View all notes ↗</a></p>{{ end }}
+  </header>
+  <div class="section-rule"><span class="red">{{ printf "%02d" (len .Pages) }} {{ if eq .Kind "taxonomy" }}TOPICS{{ else }}ENTRIES{{ end }}</span></div>
+  <ul class="archive-list">
+    {{ range .Pages.ByDate.Reverse }}
+    <li>
+      <a class="note-row" href="{{ .RelPermalink }}">
+        {{ if .IsPage }}<time datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "2006.01.02" }}</time>{{ else }}<span class="eyebrow">TOPIC</span>{{ end }}
+        <div><h2>{{ .Title }}</h2>{{ with .Description }}<p>{{ . }}</p>{{ end }}
+          <div class="note-meta">{{ if .IsPage }}<span>{{ .ReadingTime }} MIN READ</span>{{ range .Params.tags }}<span>#{{ . }}</span>{{ end }}{{ else }}<span>{{ len .Pages }} ENTRIES</span>{{ end }}</div>
+        </div>
+        <span class="note-arrow" aria-hidden="true">↗</span>
+      </a>
+    </li>
+    {{ else }}<li class="empty-state">Nothing filed here yet. <a class="text-link" href="{{ "blog/" | relURL }}">Back to notes ↗</a></li>{{ end }}
+  </ul>
+  <div class="archive-footer">
+    <nav class="tag-list" aria-label="Browse by topic">{{ range .Site.Taxonomies.tags.Alphabetical }}<a href="{{ .Page.RelPermalink }}">#{{ .Page.Title }}</a>{{ end }}</nav>
+    <a class="text-link" href="{{ "blog/index.xml" | relURL }}">Follow via RSS <span aria-hidden="true">↗</span></a>
+  </div>
+</div>
+{{ end }}

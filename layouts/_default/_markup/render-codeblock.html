@@ -1,0 +1,5 @@
+<div class="code-block">
+  <div class="code-label" aria-hidden="true">{{ .Type | default "text" | upper }}</div>
+  {{ $result := transform.HighlightCodeBlock . }}
+  {{ $result.Wrapped }}
+</div>
