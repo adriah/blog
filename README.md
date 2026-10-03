@@ -41,7 +41,20 @@ The production site needs no JavaScript, webfonts, third-party requests or appli
 hugo --minify
 ```
 
-Hugo writes the static site to `public/`. Upload that directory to your static web host to deploy. Generated output and resource caches are ignored by Git.
+Hugo writes the static site to `public/`. Generated output and resource caches are ignored by Git.
+
+Cloudflare Pages builds and deploys pushes to `main` automatically through its GitHub integration:
+
+- Repository: `adriah/blog`
+- Pages project: `sigkill-no`
+- Pages address: https://sigkill-no.pages.dev
+- Production domain: https://sigkill.no
+- Production branch: `main`
+- Build command: `hugo --minify`
+- Build output directory: `public`
+- Build environment variable: `HUGO_VERSION=0.165.0`
+
+Preview branch deployments and pull request comments are disabled. Production builds use the `https://sigkill.no` base URL in `hugo.toml`. Deployment credentials are managed by Cloudflare’s GitHub integration; no repository secrets or GitHub Actions workflow are needed.
 
 For an isolated validation build that does not touch existing generated files:
 
