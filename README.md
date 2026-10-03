@@ -6,10 +6,9 @@ The four original concepts are saved in [docs/site-concepts.md](docs/site-concep
 
 ## Develop
 
-Install a current Hugo release (validated with 0.165.0). The Bear Cub theme remains a Git submodule; initialize it if cloning afresh:
+Install a current Hugo release (validated with 0.165.0). All layouts and assets are included in this repository:
 
 ```sh
-git submodule update --init --recursive
 hugo server -D
 ```
 
@@ -42,7 +41,7 @@ The production site needs no JavaScript, webfonts, third-party requests or appli
 hugo --minify
 ```
 
-Hugo writes the static site to `public/`. The existing SourceHut `.build.yml` builds and deploys this directory to sigkill.no with rsync.
+Hugo writes the static site to `public/`. Upload that directory to your static web host to deploy. Generated output and resource caches are ignored by Git.
 
 For an isolated validation build that does not touch existing generated files:
 
@@ -51,5 +50,3 @@ hugo --minify --destination /private/tmp/sigkill-build
 ```
 
 No Node dependencies or asset-generation services are required.
-
-A separate, owner-only Sites preview is registered in `.openai/hosting.json`. To build its static output, run `hugo --minify --destination dist --baseURL https://sigkill-last-signal.mnemonic-2945.chatgpt.site/`. Production deployment to sigkill.no still uses the SourceHut workflow above.

@@ -1,2 +1,10 @@
-# Output for the private Sites preview.
+# Hugo build output and caches.
+/public/
+/resources/
+/.hugo_build.lock
+
+# Local preview output.
 /dist/
+
+# macOS metadata.
+.DS_Store
